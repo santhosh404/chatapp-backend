@@ -18,24 +18,26 @@ export const signUpHandler = async (req, res) => {
         }
 
         // Check if user already exists
-        const userCheck = await User.findOne({
-            $or: [
-                { phoneNumber: phoneNumber },
-                { email: email }
-            ]
-        });
+        const userPhoneCheck = await User.findOne({ phoneNumber: phoneNumber });
+        const userEmailCheck = await User.findOne({ email: email });
 
-        if (userCheck) {
-            const errorMessage = userCheck.phoneNumber === phoneNumber
-                ? "User with the same phone number already exists"
-                : "User with the same email already exists";
-
+        if (userPhoneCheck) {
             return res
                 .status(400)
                 .json(customError(
                     400,
                     "User already exists",
-                    { error: errorMessage }
+                    { error: "User with the same phone number already exists" }
+                ));
+        }
+
+        if (userEmailCheck) {
+            return res
+                .status(400)
+                .json(customError(
+                    400,
+                    "User already exists",
+                    { error: "User with the same email already exists" }
                 ));
         }
 
