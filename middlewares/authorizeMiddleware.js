@@ -8,21 +8,21 @@ const authorize = async (req, res, next) => {
     if (!token) {
         return res
             .status(401)
-            .json(customError({
-                statusCode: 401,
-                message: "UnAuthorized",
-                error: "Token not provided!"
-            }));
+            .json(customError(
+                401,
+                "UnAuthorized",
+                { error: "Token not provided!" }
+            ));
     }
     jwt.verify(token, JWT_SECRET, (err, decode) => {
         if (err) {
             return res
                 .status(401)
-                .json(customError({
-                    statusCode: 401,
-                    message: "UnAuthorized",
-                    error: "Token is not valid!"
-                }));
+                .json(customError(
+                    401,
+                    "UnAuthorized",
+                    { error: "Token is not valid!" }
+                ));
         }
         req.user = decode;
         next();

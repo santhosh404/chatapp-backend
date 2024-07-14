@@ -38,7 +38,7 @@ export const signInHandler = async (req, res) => {
                 { error:  "Invalid password"}
             ));
         }
-        res.status(200).json({
+        return res.status(200).json({
             status: 200,
             success: true,
             message: "User signed in successfully",
@@ -57,7 +57,7 @@ export const signInHandler = async (req, res) => {
     }
 
     catch (err) {
-        res.status(500).json(
+        return res.status(500).json(
             customError(
                 500,
                 "Internal Server Error",

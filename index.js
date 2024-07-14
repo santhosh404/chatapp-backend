@@ -9,6 +9,7 @@ import { chats } from './data/data.js';
 import { dbConnect } from './database/db.js';
 import { PORT } from './utils/config.js';
 import { userRoutes } from './routers/UserRoutes.js';
+import { chatRoutes } from './routers/ChatRoutes.js';
 
 
 const app = express();
@@ -31,7 +32,8 @@ app.get('/api/chat/:id', (req, res) => {
 })
 
 // Api routes
-app.use('/api/v1/user', userRoutes)
+app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/chat', chatRoutes);
 
 
 
