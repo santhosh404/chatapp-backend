@@ -11,8 +11,7 @@ export const getUserHandler = async (req, res) => {
             { phoneNumber: { $regex: req.query.search, $options: 'i' } }
         ]
     } : {}
-
-    console.log(keyword)
+    
     try {
         const user = await User.find(keyword).find({ _id: { $ne: req.user._id } });
         res.status(200).json({
